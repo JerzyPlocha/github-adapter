@@ -18,7 +18,7 @@ public class RepositoryInformationSerializationTest {
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         Writer writer = new StringWriter();
 
-        UserRepositoryInformation repositoryInformation = new UserRepositoryInformation();
+        GitHubRepositoryInformation repositoryInformation = new GitHubRepositoryInformation();
         repositoryInformation.setName("name1");
         repositoryInformation.setDescription("desc1");
         repositoryInformation.setUrl("https://api.github.com/repos/10/10");

@@ -14,7 +14,7 @@ public class RepositoryInformationDeserializationTest {
         // given, when
         Gson gson = new GsonBuilder().create();
 
-        UserRepositoryInformation actual = gson.fromJson(
+        GitHubRepositoryInformation actual = gson.fromJson(
                 "{\n" +
                         "  \"name\" : \"name1\",\n" +
                         "  \"description\" : \"desc1\",\n" +
@@ -22,9 +22,9 @@ public class RepositoryInformationDeserializationTest {
                         "  \"stargazers_count\" : 900,\n" +
                         "  \"created_at\" : \"2011-03-24T22:05:14Z\"\n" +
                         "}"
-                , UserRepositoryInformation.class);
+                , GitHubRepositoryInformation.class);
 
-        UserRepositoryInformation notExpected = gson.fromJson(
+        GitHubRepositoryInformation notExpected = gson.fromJson(
                 "{\n" +
                         "  \"name\" : \"name1\",\n" +
                         "  \"description\" : \"desc1\",\n" +
@@ -32,9 +32,9 @@ public class RepositoryInformationDeserializationTest {
                         "  \"stars\" : 900,\n" +
                         "  \"createdAt\" : \"2011-03-24T22:05:14Z\"\n" +
                         "}"
-                , UserRepositoryInformation.class);
+                , GitHubRepositoryInformation.class);
 
-        UserRepositoryInformation expected = new UserRepositoryInformation();
+        GitHubRepositoryInformation expected = new GitHubRepositoryInformation();
         expected.setName("name1");
         expected.setDescription("desc1");
         expected.setUrl("https://api.github.com/repos/10/10");

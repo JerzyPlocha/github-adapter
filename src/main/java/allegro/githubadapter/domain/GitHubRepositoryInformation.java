@@ -1,5 +1,6 @@
 package allegro.githubadapter.domain;
 
+import allegro.githubadapter.domain.serializer.GitHubRepositoryInformationSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.gson.annotations.SerializedName;
@@ -8,9 +9,9 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-@JsonSerialize(using = UserRepositoryInformationSerializer.class)
+@JsonSerialize(using = GitHubRepositoryInformationSerializer.class)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserRepositoryInformation {
+public class GitHubRepositoryInformation {
 
 
     @SerializedName("name")
