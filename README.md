@@ -9,5 +9,3 @@
 
 
 ### Tradeoffs ###
-
-* ISO8601 date format

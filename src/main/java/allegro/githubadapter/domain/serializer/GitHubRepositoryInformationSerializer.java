@@ -11,13 +11,14 @@ import java.util.Date;
 
 public class GitHubRepositoryInformationSerializer extends JsonSerializer {
     @Override
-    public void serialize(Object repo, JsonGenerator jsonGenerator, SerializerProvider serializers) throws IOException {
+    public void serialize(Object repoObject, JsonGenerator jsonGenerator, SerializerProvider serializers) throws IOException {
         jsonGenerator.writeStartObject();
-        jsonGenerator.writeStringField("name", ((GitHubRepositoryInformation) repo).getName());
-        jsonGenerator.writeStringField("description", ((GitHubRepositoryInformation) repo).getDescription());
-        jsonGenerator.writeStringField("url", ((GitHubRepositoryInformation) repo).getUrl());
-        jsonGenerator.writeNumberField("stars", ((GitHubRepositoryInformation) repo).getStars());
-        jsonGenerator.writeStringField("createdAt", asISO(((GitHubRepositoryInformation) repo).getCreatedAt()));
+        GitHubRepositoryInformation repo = (GitHubRepositoryInformation) repoObject;
+        jsonGenerator.writeStringField("name", repo.getName());
+        jsonGenerator.writeStringField("description", repo.getDescription());
+        jsonGenerator.writeStringField("url", repo.getUrl());
+        jsonGenerator.writeNumberField("stars", repo.getStars());
+        jsonGenerator.writeStringField("createdAt", asISO(repo.getCreatedAt()));
         jsonGenerator.writeEndObject();
     }
 

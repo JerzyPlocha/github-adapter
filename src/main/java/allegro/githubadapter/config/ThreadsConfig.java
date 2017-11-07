@@ -1,6 +1,7 @@
 package allegro.githubadapter.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -10,18 +11,19 @@ import java.util.concurrent.Executor;
 
 @EnableAsync
 @Configuration
+@ConfigurationProperties(prefix = "thread")
 public class ThreadsConfig {
 
-    @Value("${thread.pool.size.core:2}")
+    @Value("${pool.size.core:2}")
     private int corePoolSize;
 
-    @Value("${thread.pool.size.max:8}")
+    @Value("${pool.size.max:8}")
     private int maxPoolSize;
 
-    @Value("${thread.queue.capacity:1000}")
+    @Value("${queue.capacity:1000}")
     private int queueCapacity;
 
-    @Value("${thread.prefix:githubapi}")
+    @Value("${prefix:githubapi}")
     private String threadNamePrefix;
 
     @Bean
