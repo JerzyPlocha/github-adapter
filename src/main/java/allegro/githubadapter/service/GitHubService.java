@@ -6,13 +6,12 @@ import allegro.githubadapter.service.api.GitHubApi;
 import allegro.githubadapter.service.exception.GitHubRepositoryInformationNotRetrived;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import retrofit2.Call;
+import retrofit2.Response;
 
 import java.io.IOException;
-import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 @Service
@@ -23,28 +22,20 @@ public class GitHubService {
 
     /**
      * @param owner Owner of the Github Repository
-     * @param name Name of the Github Repository
+     * @param name  Name of the Github Repository
      * @return UserRepoInformationFromGithub - information about the Repository
      * @throws GitHubRepositoryInformationNotRetrived Service throws exception when information about repository
-     *         couldn't be fetched. The reason for this could be exceeded daily request rate.
+     *                                                couldn't be fetched. The reason for this could be exceeded daily request rate.
      */
-    @Async
     @Cacheable(CacheConfig.USER_REPOS_CACHE)
-    public CompletableFuture<GitHubRepositoryInformation> fetchGitHubRepository(String owner, String name) throws GitHubRepositoryInformationNotRetrived {
+    public Response<GitHubRepositoryInformation> fetchGitHubRepository(String owner, String name) throws GitHubRepositoryInformationNotRetrived {
 
-        GitHubRepositoryInformation result = null;
+        Call<GitHubRepositoryInformation> repoInfoCall = gitHubApi.loadUserRepository(owner, name);
+
         try {
-            result = gitHubApi.loadUserRepository(owner, name).execute().body();
+            return repoInfoCall.execute();
         } catch (IOException e) {
-            log.warn("Check connection. Couldn't connect to GitHub API: {}", e);
-        }
-
-        if (result != null && result.getName() != null) {
-            return CompletableFuture.completedFuture(result);
-
-        } else {
-            log.warn("null response from GitHub for: {}/{}", owner, name);
-            throw new GitHubRepositoryInformationNotRetrived();
+            throw new GitHubRepositoryInformationNotRetrived("Check connection.", e);
         }
     }
 
