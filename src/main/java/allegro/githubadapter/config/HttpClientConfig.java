@@ -16,6 +16,9 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 @Configuration
 public class HttpClientConfig {
 
+    @Value("${github.url:https://api.github.com/repos/}")
+    private String GITHUB_API_ADDRESS;
+
     @Value("${maxIdleConnections:2}")
     private int maxIdleConnections;
 
@@ -33,7 +36,7 @@ public class HttpClientConfig {
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(GitHubApi.GITHUB_API_ADDRESS)
+                .baseUrl(GITHUB_API_ADDRESS)
                 .client(okHttp)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
