@@ -22,7 +22,7 @@ public class GitHubRepositoryInformationController {
         try {
             return gitHubService.fetchGitHubRepository(owner, repositoryName).get();
         } catch (Exception e) {
-            log.trace("Couldn't retrieve info from GitHub API: {}, {}", owner, repositoryName);
+            log.error("Couldn't retrieve info from GitHub API: {}, {}", owner, repositoryName);
             throw new GitHubRepositoryInformationNotFound();
         }
     }
