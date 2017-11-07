@@ -16,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class GitHubService {
 
     private final GitHubApi gitHubApi;
