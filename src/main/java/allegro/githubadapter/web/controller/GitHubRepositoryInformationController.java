@@ -38,12 +38,12 @@ public class GitHubRepositoryInformationController {
     }
 
     @ExceptionHandler(GitHubRepositoryInformationNotFound.class)
-    public String handleUserRepositoryNotFound() {
-        return "User or repository not found.";
+    public ResponseEntity<String> handleUserRepositoryNotFound() {
+        return new ResponseEntity<String>("User or repository not found.", HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(GitHubRepositoryInformationNotRetrived.class)
-    public String handleUserRepositoryNotRetrived() {
-        return "We couldn't retrieve this user or repository";
+    public ResponseEntity<String> handleUserRepositoryNotRetrived() {
+        return new ResponseEntity<String>("We couldn't retrieve this user or repository", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
